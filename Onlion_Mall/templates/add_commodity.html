@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>商品录入</title>
+{% load staticfiles %} 
+<link rel="stylesheet" href="{% static 'css/add_commodity.css' %}"></link>
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"></link>
+<link rel="stylesheet" href="{% static 'css/style.css' %}" ></link>
+<script src="{% static 'js/add_commodity.js' %}"></script>
+</head>
+<body>
+	<div class="header">	
+      <div class="container"> 
+  	     <div class="logo">
+			<h1><a href="/home">Onlion Mall</a></h1>
+		 </div>
+		 <div class="top_right">
+		   <ul>
+			<li><a href="/register-form">注册</a></li>|
+			<li><a href="/login-form">&nbsp;登录</a></li>
+		   </ul>
+	     </div>
+		 <div class="clearfix"></div>
+		</div>
+	</div>
+	<div class="content">
+		<div class="bidTitle">商品录入</div>
+		<div class="logCon">
+		<form action="/commodity" method="get" >
+			<input type="hidden" name="type" id="type"/>
+			<div><span>名称：</span>
+			<input class="bt_input" type="text" name="name" id="name"></div>
+			<div><span>编号：</span>
+			<input class="bt_input" type="text" name="commodity_id" id="commodity_id"></div>
+			<div><span>种类：</span>
+			<input class="bt_input" type="text" name="commodity_type" id="commodity_type"></div>
+			<div><span>('FD', '食品'), ('CL', '衣物'), ('EL', '电器'), ('DG', '数码'), ('DU', '日用'),('JE', '首饰'),('MD', '药品')</span></div>
+			<div><span>价格：</span>
+			<input class="bt_input" type="text" name="price" id="price"></div>
+			<div><span>版本：</span>
+			<input class="bt_input" type="text" name="edition" id="edition"></div>
+			<button type="button" class="logingBut" onclick="Add_Type()">录入</button>
+		</form>
+		</div/>
+	</div>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Home</title>
+<meta http-equiv="Content-Type" content="text/html" charset=utf-8 />
+{% load staticfiles %} 
+<link href="{% static 'css/bootstrap.css' %}" rel='stylesheet'/>
+<link href="{% static 'css/style.css' %}" rel='stylesheet'/>
+<script type="text/javascript" src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+<script src="{% static 'js/menu_jquery.js' %}"></script>
+<script src="{% static 'js/index.js' %}"></script>
+<script src="{% static 'js/head.js' %}"></script>
+</head>
+<body onload="Check_Login_Index()">
+	<div hidden="hidden" id="is_login">{{is_login}}</div>
+	<div hidden="hidden" id="account" >{{account}}</div>
+	<div class="header">	
+      <div class="container"> 
+  	     <div class="logo">
+			<h1><a href="/home">Onlion Mall</a></h1>
+		 </div>
+		 <div class="top_right">
+		   <ul>
+			<div id="register_login"><li><a href="/register-form" >注册</a></li>|<li><a href="/login-form" >&nbsp;登录</a></li></div>
+			<div hidden="hidden" id="name_shopping_cart"><li><a href="#" id="user_name" onclick="View_Order()">{{name}}</a></li>|<li><a href="#" onclick="View_Cart()">&nbsp;购物车</a></li>|<li><a href="#" onclick="Logout()">&nbsp;退出</a></li></div>
+		   </ul>
+	     </div>
+		 <div class="clearfix"></div>
+		</div>
+	</div>
+	<div class="banner">
+		<div class="container">
+			<div class="span_1_of_1">
+			    <h2>COMMODITYS, MERCHANDISE<br>BY CREATIVES ALL OVER THE WORLD.</h2>
+			    <div class="search">
+			      <ul class="nav1">
+		            <li id="search">
+						<form action="" method="get" id="search_form">
+							<input type="hidden" name="type" id="type"/>
+							<input type="text" name="search_text" id="search_text" placeholder="搜索" onkeydown="Search()" onkeyup="Search()" list="commodity_list"/>
+							<datalist id="commodity_list">
+								
+							</datalist>
+							<input type="button" name="search_button" id="search_button" onclick="Submit()">
+							
+						</form>
+					</li>
+					<li id="options">
+						<a href="#">所有类型</a>
+						<ul class="subnav">
+							<li><a href="#" onclick="View_By_Type('FD')">食品</a></li>
+							<li><a href="#" onclick="View_By_Type('CL')">衣物</a></li>
+							<li><a href="#" onclick="View_By_Type('EL')">电器</a></li>
+							<li><a href="#" onclick="View_By_Type('DG')">数码</a></li>
+							<li><a href="#" onclick="View_By_Type('DU')">日用</a></li>
+							<li><a href="#" onclick="View_By_Type('JE')">首饰</a></li>
+							<li><a href="#" onclick="View_By_Type('MD')">药品</a></li>
+						</ul>
+					</li>
+	              </ul>
+	            </div>
+			</div>
+		</div>
+	</div>
+	<div class="grid_1"> 
+		<h3>Over 42 Million Stock Foods, Clothes, Necessities and Electric Appliance</h3>
+		<div class="col-md-2 col_1">
+			<h4>Clothes</h4>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/c1.jpg' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/c2.gif' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/c3.png' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/c4.jpg' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/c5.jpg' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<h4>Foods</h4>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/f1.jpeg' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/f5.jpg' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/f2.jpeg' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/f3.jpg' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/f4.jpg' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<h4>Electric Appliance</h4>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/e1.png' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/e5.jpg' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/e2.jpg' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/e3.gif' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/e4.png' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<h4>Digital Products</h4>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/d1.jpg' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/d2.png' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/d3.jpg' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/d4.jpg' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/d5.jpg' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<h4>Jewelry</h4>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/j1.jpg' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/j2.png' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/j3.jpg' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/j4.png' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="col-md-2 col_1">
+			<img src="{% static 'images/j5.png' %}" class="img-responsive" alt=""/>
+		</div>
+		<div class="clearfix"> </div>
+	</div>
+	<div class="grid_2">
+		<div class="container"> 
+			<div class="col-md-3 col_2">
+				<h3>Stock Commodity<br>Categories</h3>
+			</div>
+			<div class="col-md-9 col_5">
+				<div class="col_1_of_5 span_1_of_5">
+					<ul class="list1">
+					    <li><a href="stock.html">Abstract</a></li>
+			            <li><a href="stock.html">Animals/Wildlife</a></li>
+			            <li><a href="stock.html">The Arts</a></li>
+			            <li><a href="stock.html">Backgrounds/Textures</a></li>
+			            <li><a href="stock.html">Beauty/Fashion</a></li>
+			            <li><a href="stock.html">Buildings/Landmarks</a></li>
+		            </ul>
+				</div>
+				<div class="col_1_of_5 span_1_of_5">
+					<ul class="list1">
+					    <li><a href="stock.html">Business/Finance</a></li>
+			            <li><a href="stock.html">Celebrities</a></li>
+			            <li><a href="stock.html">Editorial</a></li>
+			            <li><a href="stock.html">Education</a></li>
+			            <li><a href="stock.html">Food and Drink</a></li>
+			            <li><a href="stock.html">Healthcare/Medical</a></li>
+		            </ul>
+				</div>
+				<div class="col_1_of_5 span_1_of_5">
+					<ul class="list1">
+					    <li><a href="stock.html">Holidays</a></li>
+			            <li><a href="stock.html">Illustrations/Clip-Art</a></li>
+			            <li><a href="stock.html">Industrial</a></li>
+			            <li><a href="stock.html">Interiors</a></li>
+			            <li><a href="stock.html">Miscellaneous</a></li>
+			            <li><a href="stock.html">Model Released Only</a></li>
+		            </ul>
+				</div>
+				<div class="col_1_of_5 span_1_of_5">
+					<ul class="list1">
+					    <li><a href="stock.html">Nature</a></li>
+			            <li><a href="stock.html">Objects</a></li>
+			            <li><a href="stock.html">Parks/Outdoor</a></li>
+			            <li><a href="stock.html">People</a></li>
+			            <li><a href="stock.html">Religion</a></li>
+			            <li><a href="stock.html">Science</a></li>
+		            </ul>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+	<div class="grid_3">
+	  <div class="container">
+	  	 <ul id="footer-links">
+			<li><a href="#">Terms of Use</a></li>
+			<li><a href="#">Royalty Free License</a></li>
+			<li><a href="#">Extended License</a></li>
+			<li><a href="#">Privacy</a></li>
+			<li><a href="#">Support</a></li>
+			<li><a href="#">About Us</a></li>
+			<li><a href="#">FAQ</a></li>
+			<li><a href="#">Categories</a></li>
+         </ul>
+         <p>Copyright &copy; 2015.Onlion Mall All rights reserved.</p>
+	  </div>
+	</div>
+</body>
+</html>	

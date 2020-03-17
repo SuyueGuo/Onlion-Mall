@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>搜索结果</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{% load staticfiles %} 
+<link href="{% static 'css/bootstrap.css' %}" rel='stylesheet'/>
+<link href="{% static 'css/style2.css' %}" rel='stylesheet'/>
+<script type="text/javascript" src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+<script src="{% static 'js/menu_jquery.js' %}"></script>
+<script src="{% static 'js/search_result.js' %}"></script>
+<script src="{% static 'js/head.js' %}"></script>
+</head>
+<body onload="Check_Login()">
+	<div class="header">	
+      <div class="container"> 
+  	     <div class="logo">
+			<h1><a href="/home">Onlion Mall</a></h1>
+		 </div>
+		 <div class="top_right">
+		   <ul>
+			<div id="register_login"><li><a href="/register-form" >注册</a></li>|<li><a href="/login-form" >&nbsp;登录</a></li></div>
+			<div hidden="hidden" id="name_shopping_cart"><li><a href="#" id="user_name" onclick="View_Order()"></a></li>|<li><a href="#" onclick="View_Cart()">&nbsp;购物车</a></li>|<li><a href="#" onclick="Logout()">&nbsp;退出</a></li></div>
+		   </ul>
+	     </div>
+		 <div class="clearfix"></div>
+		</div>
+	</div>
+	<div class="banner">
+		<div class="search">
+		  <ul class="nav1">
+			<li id="search">
+				<form action="" method="get">
+					<input type="text" name="search_text" id="search_text" placeholder="搜索" onkeydown="Search()" onkeyup="Search()" list="commodity_list"/>
+						<datalist id="commodity_list">
+							
+						</datalist>
+					<input type="button" name="search_button" id="search_button" onclick="Submit()">
+				</form>
+			</li>
+			<li id="options">
+						<a href="#">所有类型</a>
+						<ul class="subnav">
+							<li><a href="#" onclick="View_By_Type('FD')">食品</a></li>
+							<li><a href="#" onclick="View_By_Type('CL')">衣物</a></li>
+							<li><a href="#" onclick="View_By_Type('EL')">电器</a></li>
+							<li><a href="#" onclick="View_By_Type('DG')">数码</a></li>
+							<li><a href="#" onclick="View_By_Type('DU')">日用</a></li>
+							<li><a href="#" onclick="View_By_Type('JE')">首饰</a></li>
+							<li><a href="#" onclick="View_By_Type('MD')">药品</a></li>
+						</ul>
+					</li>
+		  </ul>
+		</div>
+	</div>
+	<div class="stock_box">
+	 <div class="col-md-2 stock_left">
+	   <div class="w_sidebar">
+		<section class="sky-form">
+		   <h4>Collections</h4>
+			 <div class="col col-4">
+				<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>All images</label>
+			 </div><div class="col col-4">
+			    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Standard</label>
+				<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Following</label>
+				<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Lorem Ipsum</label>
+				<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Injected humour</label>
+				<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Default model </label>
+			</div>
+		</section>
+		<section class="sky-form">
+			<h4>Freshness</h4>
+			<div class="col col-4">
+				<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Any time</label>
+				<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Past 3 months</label>
+				<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Past month</label>
+			</div><div class="col col-4">
+				<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Past week</label>
+				<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Past 3 days</label>
+				<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Any time</label>
+			</div>
+		</section>
+		<section class="sky-form">
+			<h4>discount</h4>
+			<div class="col col-4">
+				<label class="radio"><input type="radio" name="radio" checked=""><i></i>60 % and above</label>
+				<label class="radio"><input type="radio" name="radio"><i></i>50 % and above</label>
+				<label class="radio"><input type="radio" name="radio"><i></i>40 % and above</label>
+			</div><div class="col col-4">
+				<label class="radio"><input type="radio" name="radio"><i></i>30 % and above</label>
+				<label class="radio"><input type="radio" name="radio"><i></i>20 % and above</label>
+				<label class="radio"><input type="radio" name="radio"><i></i>10 % and above</label>
+			</div>						
+		</section>
+	   </div>
+      </div>
+	  <div class="col-md-10 sap_tabs">	
+	       <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
+			  
+			  <div class="resp-tabs-container">
+				<ul class="tab_img">
+					{% for commodity in result %}
+				  <li><a href="/commodity/?type=view_details&commodity_id={{commodity.commodity_id}}&account={{account}}" >
+					 <img src="/static/images/small_{{commodity.commodity_id}}.png" class="img-responsive_2" alt=""/>
+					 <div class="tab_desc">
+						<p>名称:{{commodity.name}}</p>
+						<p>类别:{{commodity.commodity_type}}</p>
+					    <p>价格:{{commodity.price}}</p>
+					    <p>折后价格:{{commodity.disc_price}}</p>
+						<h4 name={{commodity.commodity_id}} id={{commodity.commodity_id}}>#{{commodity.commodity_id}}</h4>
+					 </div>
+				   </a></li>
+				   {% endfor %}
+				</ul>
+			  </div>
+           </div>
+           
+       </div>
+	   <ul class="pagination">
+	        <li>
+	          <a href="#" aria-label="Previous">
+	            <span aria-hidden="true">«</span>
+	          </a>
+	        </li>
+	        <li><a href="#">1</a></li>
+	        <li><a href="#">2</a></li>
+	        <li><a href="#">3</a></li>
+	        <li><a href="#">4</a></li>
+	        <li><a href="#">5</a></li>
+	        <li>
+	          <a href="#" aria-label="Next">
+	            <span aria-hidden="true">»</span>
+	          </a>
+	        </li>
+         </ul>
+       <div class="clearfix"> </div>
+    </div>
+	<div class="grid_2">
+		<div class="container"> 
+			<div class="col-md-3 col_2">
+				<h3>Stock Commodity<br>Categories</h3>
+			</div>
+			<div class="col-md-9 col_5">
+				<div class="col_1_of_5 span_1_of_5">
+					<ul class="list1">
+					    <li><a href="stock.html">Abstract</a></li>
+			            <li><a href="stock.html">Animals/Wildlife</a></li>
+			            <li><a href="stock.html">The Arts</a></li>
+			            <li><a href="stock.html">Backgrounds/Textures</a></li>
+			            <li><a href="stock.html">Beauty/Fashion</a></li>
+			            <li><a href="stock.html">Buildings/Landmarks</a></li>
+		            </ul>
+				</div>
+				<div class="col_1_of_5 span_1_of_5">
+					<ul class="list1">
+					    <li><a href="stock.html">Business/Finance</a></li>
+			            <li><a href="stock.html">Celebrities</a></li>
+			            <li><a href="stock.html">Editorial</a></li>
+			            <li><a href="stock.html">Education</a></li>
+			            <li><a href="stock.html">Food and Drink</a></li>
+			            <li><a href="stock.html">Healthcare/Medical</a></li>
+		            </ul>
+				</div>
+				<div class="col_1_of_5 span_1_of_5">
+					<ul class="list1">
+					    <li><a href="stock.html">Holidays</a></li>
+			            <li><a href="stock.html">Illustrations/Clip-Art</a></li>
+			            <li><a href="stock.html">Industrial</a></li>
+			            <li><a href="stock.html">Interiors</a></li>
+			            <li><a href="stock.html">Miscellaneous</a></li>
+			            <li><a href="stock.html">Model Released Only</a></li>
+		            </ul>
+				</div>
+				<div class="col_1_of_5 span_1_of_5">
+					<ul class="list1">
+					    <li><a href="stock.html">Nature</a></li>
+			            <li><a href="stock.html">Objects</a></li>
+			            <li><a href="stock.html">Parks/Outdoor</a></li>
+			            <li><a href="stock.html">People</a></li>
+			            <li><a href="stock.html">Religion</a></li>
+			            <li><a href="stock.html">Science</a></li>
+		            </ul>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+	<div class="grid_3">
+	  <div class="container">
+	  	 <ul id="footer-links">
+			<li><a href="#">Terms of Use</a></li>
+			<li><a href="#">Royalty Free License</a></li>
+			<li><a href="#">Extended License</a></li>
+			<li><a href="#">Privacy</a></li>
+			<li><a href="support.html">Support</a></li>
+			<li><a href="about.html">About Us</a></li>
+			<li><a href="faq.html">FAQ</a></li>
+			<li><a href="#">Categories</a></li>
+         </ul>
+         <p>Copyright &copy; 2015.Onlion Mall All rights reserved.</p>
+	  </div>
+	</div>
+</body>
+</html>	

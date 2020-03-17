@@ -1,0 +1,233 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>发表评论</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{% load staticfiles %} 
+<link href="{% static 'css/bootstrap.css' %}" rel='stylesheet'/>
+<link href="{% static 'css/style.css' %}" rel='stylesheet'/>
+<link href="{% static 'css/cmstyle.css' %}" rel='stylesheet'/>
+<link href="{% static 'css/personal.css' %}" rel='stylesheet'/>
+<link href="{% static '/AmazeUI-2.4.2/assets/css/admin.css' %}" rel='stylesheet'/>
+<link href="{% static '/AmazeUI-2.4.2/assets/css/amazeui.css' %}" rel='stylesheet'/>
+<script type="text/javascript" src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+<script src="{% static 'js/menu_jquery.js' %}"></script>
+<script src="{% static 'js/check_comment.js' %}"></script>
+<script src="{% static 'js/head.js' %}"></script>
+</head>
+<body>
+	<div class="center">
+		<div class="col-main">
+			<div class="main-wrap">
+
+				<div class="user-comment">
+					<!--标题 -->
+					<div class="am-cf am-padding">
+						<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">评价管理</strong> / <small>Make&nbsp;Comments</small></div>
+					</div>
+					<hr/>
+
+					<div class="am-tabs am-tabs-d2 am-margin" data-am-tabs>
+
+							<ul class="am-avg-sm-2 am-tabs-nav am-nav am-nav-tabs">
+								<li class="am-active"><a href="#tab1">所有评价</a></li>
+
+							</ul>
+
+							<div class="am-tabs-bd">
+								<div class="am-tab-panel am-fade am-in am-active" id="tab1">
+
+									<div class="comment-main">
+										<div class="comment-list">
+											{% if not comments %}
+											<h1>您还未评价过商品！</h1>
+											{% endif %}
+											{% for comment in comments %}
+											<ul class="item-list">
+												<div class="comment-top">
+													<div class="th th-price">
+														<td class="td-inner">评价</td>
+													</div>
+													<div class="th th-item">
+														<td class="td-inner">商品</td>
+													</div>													
+												</div>
+												<li class="td td-item">
+													<div class="item-pic">
+														<a href="/commodity/?type=view_details&commodity_id={{comment.commodity_id}}&account={{account}}" class="J_MakePoint">
+															<img src="/static/images/single{{comment.edition_id}}_{{comment.commodity_id}}.png" class="itempic">
+														</a>
+													</div>
+												</li>
+
+												<li class="td td-comment">
+													<div class="item-title">
+														{% if comment.score == 3 %}
+														<div class="item-opinion">好评</div>
+														{% elif commemt.score == 2 %}
+														<div class="item-opinion">中评</div>
+														{% else %}
+														<div class="item-opinion">差评</div>
+														{% endif %}
+														<div class="item-name">
+															<a href="/commodity/?type=view_details&commodity_id={{comment.commodity_id}}&account={{account}}">
+																<p class="item-basic-info">{{comment.commodity_name}}</p>
+															</a>
+														</div>
+													</div>
+													<div class="item-comment">
+														{{comment.content}}
+													</div>
+													<div class="item-info">
+														<div>
+															<p class="info-little"><span>版本：{{comment.edition}}</span> <span></span> </p>
+															<p class="info-time">{{comment.create_time}}</p>
+
+														</div>
+													</div>
+
+													
+												</li>
+
+											</ul>
+											{% endfor %}
+
+										</div>
+									</div>
+
+								</div>
+								
+							</div>
+						</div>
+
+				</div>
+
+			</div>
+		</div>
+
+		<aside class="menu">
+				<ul>
+					<li class="person active" onclick="View_Order()">
+						<a ><i class="am-icon-user"></i>个人中心</a>
+					</li>
+					<li class="person active">
+						<a href="/home">返回首页</a>
+					</li>
+					<li class="person">
+						<p><i class="am-icon-newspaper-o"></i>个人资料</p>
+						<ul>
+							<li> <a href="">个人信息</a></li>
+							<li> <a href="">安全设置</a></li>
+							<li> <a href="">地址管理</a></li>
+							<li> <a href="">快捷支付</a></li>
+						</ul>
+					</li>
+					<li class="person">
+						<p><i class="am-icon-balance-scale"></i>我的交易</p>
+						<ul>
+							<li><a href="">订单管理</a></li>
+							<li> <a href="">退款售后</a></li>
+							<li> <a href="#" onclick="Comment_Management()">评价管理</a></li>
+						</ul>
+					</li>
+					<li class="person">
+						<p><i class="am-icon-dollar"></i>我的资产</p>
+						<ul>
+							<li> <a href="">我的积分</a></li>
+							<li> <a href="">优惠券 </a></li>
+							<li> <a href="">红包</a></li>
+							<li> <a href="">账户余额</a></li>
+							<li> <a href="">账单明细</a></li>
+						</ul>
+					</li>
+
+					<li class="person">
+						<p><i class="am-icon-tags"></i>我的收藏</p>
+						<ul>
+							<li> <a href="">收藏</a></li>
+							<li> <a href="">足迹</a></li>
+						</ul>
+					</li>
+
+					<li class="person">
+						<p><i class="am-icon-qq"></i>在线客服</p>
+						<ul>
+							<li> <a href="">商品咨询</a></li>
+							<li> <a href="">意见反馈</a></li>							
+							
+							<li> <a href="">我的消息</a></li>
+						</ul>
+					</li>
+				</ul>
+
+			</aside>
+	</div>
+	<br><br><br>
+	<div class="grid_2">
+		<div class="container"> 
+			<div class="col-md-3 col_2">
+				<h3>Stock Commodity<br>Categories</h3>
+			</div>
+			<div class="col-md-9 col_5">
+				<div class="col_1_of_5 span_1_of_5">
+					<ul class="list1">
+					    <li><a href="stock.html">Abstract</a></li>
+			            <li><a href="stock.html">Animals/Wildlife</a></li>
+			            <li><a href="stock.html">The Arts</a></li>
+			            <li><a href="stock.html">Backgrounds/Textures</a></li>
+			            <li><a href="stock.html">Beauty/Fashion</a></li>
+			            <li><a href="stock.html">Buildings/Landmarks</a></li>
+		            </ul>
+				</div>
+				<div class="col_1_of_5 span_1_of_5">
+					<ul class="list1">
+					    <li><a href="stock.html">Business/Finance</a></li>
+			            <li><a href="stock.html">Celebrities</a></li>
+			            <li><a href="stock.html">Editorial</a></li>
+			            <li><a href="stock.html">Education</a></li>
+			            <li><a href="stock.html">Food and Drink</a></li>
+			            <li><a href="stock.html">Healthcare/Medical</a></li>
+		            </ul>
+				</div>
+				<div class="col_1_of_5 span_1_of_5">
+					<ul class="list1">
+					    <li><a href="stock.html">Holidays</a></li>
+			            <li><a href="stock.html">Illustrations/Clip-Art</a></li>
+			            <li><a href="stock.html">Industrial</a></li>
+			            <li><a href="stock.html">Interiors</a></li>
+			            <li><a href="stock.html">Miscellaneous</a></li>
+			            <li><a href="stock.html">Model Released Only</a></li>
+		            </ul>
+				</div>
+				<div class="col_1_of_5 span_1_of_5">
+					<ul class="list1">
+					    <li><a href="stock.html">Nature</a></li>
+			            <li><a href="stock.html">Objects</a></li>
+			            <li><a href="stock.html">Parks/Outdoor</a></li>
+			            <li><a href="stock.html">People</a></li>
+			            <li><a href="stock.html">Religion</a></li>
+			            <li><a href="stock.html">Science</a></li>
+		            </ul>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+	<div class="grid_3">
+	  <div class="container">
+	  	 <ul id="footer-links">
+			<li><a href="#">Terms of Use</a></li>
+			<li><a href="#">Royalty Free License</a></li>
+			<li><a href="#">Extended License</a></li>
+			<li><a href="#">Privacy</a></li>
+			<li><a href="#">Support</a></li>
+			<li><a href="#">About Us</a></li>
+			<li><a href="#">FAQ</a></li>
+			<li><a href="#">Categories</a></li>
+         </ul>
+         <p>Copyright &copy; 2015.Onlion Mall All rights reserved.</p>
+	  </div>
+	</div>
+
+</body>

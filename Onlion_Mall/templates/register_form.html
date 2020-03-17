@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>用户注册</title>
+{% load staticfiles %} 
+<link rel="stylesheet" href="{% static 'css/register_form.css' %}"></link>
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"></link>
+<link rel="stylesheet" href="{% static 'css/style.css' %}" ></link>
+<script src="{% static 'js/register_form.js' %}"></script>
+<script src="{% static 'js/md5.js' %}"></script>
+
+</head>
+<body>
+	<div class="header">	
+      <div class="container"> 
+  	     <div class="logo">
+			<h1><a href="/home">Onlion Mall</a></h1>
+		 </div>
+		 <div class="top_right">
+		   <ul>
+			<li><a href="/register-form">注册</a></li>|
+			<li><a href="/login-form">&nbsp;登录</a></li>
+		   </ul>
+	     </div>
+		 <div class="clearfix"></div>
+		</div>
+	</div>
+	<div class="content">
+		<div class="bidTitle">用户注册</div>
+		<div class="logCon">
+		<form action="/user/" method="post" onsubmit="return checkpost()">
+			{% csrf_token %}
+			<input type="hidden" name="type" id="type"/>
+			<div><span>姓名：</span>
+			<input class="bt_input" type="text" name="name" id="name"></div>
+			<div><span>账号：</span>
+			<input class="bt_input" type="text" name="account" id="account"></div>
+			<div><span>密码：</span>
+			<input class="bt_input" type="password" name="password" id="password"></div>
+			<div><span>确认密码：</span>
+			<input class="bt_input" type="password" name="password2" id="password2"></div>
+			<div><span>地址：</span>
+			<input class="bt_input" type="text" name="address"></div>
+			<div><span>电话：</span>
+			<input class="bt_input" type="text" name="telephone" id="telephone"></div>
+			<button type="submit" class="logingBut">注册</button>
+		</form>
+		</div/>
+	</div>
+</body>
+</html>

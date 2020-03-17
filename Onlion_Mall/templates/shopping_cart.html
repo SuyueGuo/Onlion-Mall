@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>购物车</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{% load staticfiles %} 
+<link href="{% static 'css/bootstrap.css' %}" rel='stylesheet'/>
+<link href="{% static 'css/style.css' %}" rel='stylesheet'/>
+<link href="{% static 'css/jd.css' %}" rel='stylesheet'/>
+<link href="{% static 'css/reset.css' %}" rel='stylesheet'/>
+<script type="text/javascript" src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+<script src="{% static 'js/menu_jquery.js' %}"></script>
+<script src="{% static 'js/shopping_cart.js' %}"></script>
+<script src="{% static 'js/head.js' %}"></script>
+
+</head>
+<body onload="Check_Login_and_Total()">
+	<div class="header">	
+      <div class="container"> 
+  	     <div class="logo">
+			<h1><a href="/home">Onlion Mall</a></h1>
+		 </div>
+		 <div class="top_right">
+		   <ul>
+			<div id="register_login"><li><a href="/register-form" >注册</a></li>|<li><a href="/login-form" >&nbsp;登录</a></li></div>
+			<div hidden="hidden" id="name_shopping_cart"><li><a href="#" id="user_name" onclick="View_Order()"></a></li>|<li><a href="#" onclick="View_Cart()">&nbsp;购物车</a></li>|<li><a href="#" onclick="Logout()">&nbsp;退出</a></li></div>
+		   </ul>
+	     </div>
+		 <div class="clearfix"></div>
+		</div>
+	</div>
+	
+		
+		
+		<!--标题开始	-->
+		<div class="title warp">
+			<h3>全部商品</h3>
+			
+			<div >
+				<span id="">配送至</span>
+				<select >
+					<option >海淀区</option>
+					<option >朝阳区</option>
+					<option >西城区</option>
+					<option >东城区</option>
+					<option >丰台区</option>
+				</select>
+			</div>
+		</div>
+		
+		<!--标题结束-->
+		<!--显示菜单的开始 -->
+		<!--warp令内容居中显示-->
+		<div class="tips warp">
+			<ui>
+				<li><input type="checkbox" onclick="Choose_All('choose_all_1')" id="choose_all_1">全选</li>
+				<li>商品</li>
+				<li>单价</li>
+				<li>数量</li>
+				<li>小计</li>
+				<li>操作</li>
+			</ui>
+		</div>
+		<!--显示菜单的结束-->
+		
+		<!--商品详情展示开始-->
+		{% if not result %}
+		<br><h1>购物车空空如也，快去加购吧！</h1>
+		{% endif %}
+		{% for order in result %}
+		 <div class="info warp">
+		  	
+		  	  <ul>
+				<div hidden="hidden" id="{{order.commodity_id}}_{{order.edition_id}}_disc_price">{{order.disc_price}}</div>
+				<div hidden="hidden" id="{{order.commodity_id}}_{{order.edition_id}}_edition_id">{{order.edition_id}}</div>
+		  	  	<li class="info_1"><input type="checkbox" onclick="Choose('{{order.commodity_id}}', '{{order.edition_id}}')" id="{{order.commodity_id}}_{{order.edition_id}}_checkbox" name="commodity_box" value='{{order.price}}' /> </li>
+		  	  	<li class="info_2"> <img src="/static/images/single{{order.edition_id}}_{{order.commodity_id}}.png" width="80px" height="85px"/> </li>
+		  	  	<li class="info_3"><a href="/commodity/?type=view_details&commodity_id={{order.commodity_id}}&account={{account}}">{{order.name}}</a></li>
+		  	  	<li class="info_4"><a>版本：<label id="{{order.commodity_id}}_{{order.edition_id}}_edition">{{order.edition}}</label></a> </li>
+		  	  	<li class="info_5" >￥<label id="{{order.commodity_id}}_price">{{order.price}}</label></li>
+		  	  	<li class="info_6">
+		  	  		<button onclick="Number_Down('{{order.commodity_id}}', '{{order.edition_id}}')">-</button>
+		  	  		<input type="text" name=""  value="{{order.number}}" id='{{order.commodity_id}}_{{order.edition_id}}_number' oninput="Change_Total('{{order.commodity_id}}', '{{order.edition_id}}')" />
+		  	  		<button class="bot" onclick="Number_Up('{{order.commodity_id}}', '{{order.edition_id}}')">+</button>
+		  	  		
+		  	  	</li>
+		  	  	<li class="info_7" >￥<label id="{{order.commodity_id}}_{{order.edition_id}}_total_price">{{order.total_price}}</label></li>
+		  	  	<li>
+		  	  		<a class="info_8" onclick="Delete('{{order.commodity_id}}', '{{order.edition_id}}', true)">删除</a>
+		  	  	</li>
+		  	  </ul>
+		  	
+		  </div>
+		{% endfor %}
+		  
+		<!--商品详情展示结束-->
+		
+		<!--结算窗口开始-->
+			<div class="balance warp">
+				<ul class="balance_ul1">
+				<li><input type="checkbox" onclick="Choose_All('choose_all_2')" id="choose_all_2">全选</li>
+				<li>删除选中商品</li>
+				<li>移到我的关注</li>
+				<li>清除下柜商品</li>
+			</ul>
+			
+			<ul class="balance_ul2">
+				<li>已经选择<span id="num_choose">0</span>件商品</li>
+				<li>总价<span>￥</span><span id="total_price">0</span></li>
+				<li type="button" class="butt" onclick="Buy_All()">立即购买</li>
+			</ul>
+			</div>
+		<!--结算窗口结束-->
+		<div class="clearfix"> </div>
+		
+	<br><br><br>
+	
+	<div class="grid_2">
+		<div class="container"> 
+			<div class="col-md-3 col_2">
+				<h3>Stock Commodity<br>Categories</h3>
+			</div>
+			<div class="col-md-9 col_5">
+				<div class="col_1_of_5 span_1_of_5">
+					<ul class="list1">
+					    <li><a href="stock.html">Abstract</a></li>
+			            <li><a href="stock.html">Animals/Wildlife</a></li>
+			            <li><a href="stock.html">The Arts</a></li>
+			            <li><a href="stock.html">Backgrounds/Textures</a></li>
+			            <li><a href="stock.html">Beauty/Fashion</a></li>
+			            <li><a href="stock.html">Buildings/Landmarks</a></li>
+		            </ul>
+				</div>
+				<div class="col_1_of_5 span_1_of_5">
+					<ul class="list1">
+					    <li><a href="stock.html">Business/Finance</a></li>
+			            <li><a href="stock.html">Celebrities</a></li>
+			            <li><a href="stock.html">Editorial</a></li>
+			            <li><a href="stock.html">Education</a></li>
+			            <li><a href="stock.html">Food and Drink</a></li>
+			            <li><a href="stock.html">Healthcare/Medical</a></li>
+		            </ul>
+				</div>
+				<div class="col_1_of_5 span_1_of_5">
+					<ul class="list1">
+					    <li><a href="stock.html">Holidays</a></li>
+			            <li><a href="stock.html">Illustrations/Clip-Art</a></li>
+			            <li><a href="stock.html">Industrial</a></li>
+			            <li><a href="stock.html">Interiors</a></li>
+			            <li><a href="stock.html">Miscellaneous</a></li>
+			            <li><a href="stock.html">Model Released Only</a></li>
+		            </ul>
+				</div>
+				<div class="col_1_of_5 span_1_of_5">
+					<ul class="list1">
+					    <li><a href="stock.html">Nature</a></li>
+			            <li><a href="stock.html">Objects</a></li>
+			            <li><a href="stock.html">Parks/Outdoor</a></li>
+			            <li><a href="stock.html">People</a></li>
+			            <li><a href="stock.html">Religion</a></li>
+			            <li><a href="stock.html">Science</a></li>
+		            </ul>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+	<div class="grid_3">
+	  <div class="container">
+	  	 <ul id="footer-links">
+			<li><a href="#">Terms of Use</a></li>
+			<li><a href="#">Royalty Free License</a></li>
+			<li><a href="#">Extended License</a></li>
+			<li><a href="#">Privacy</a></li>
+			<li><a href="#">Support</a></li>
+			<li><a href="#">About Us</a></li>
+			<li><a href="#">FAQ</a></li>
+			<li><a href="#">Categories</a></li>
+         </ul>
+         <p>Copyright &copy; 2015.Onlion Mall All rights reserved.</p>
+	  </div>
+	</div>
+</body>
+</html>	

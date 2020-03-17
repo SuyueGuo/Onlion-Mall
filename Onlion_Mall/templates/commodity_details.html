@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>商品详情</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{% load staticfiles %} 
+<link href="{% static 'css/bootstrap.css' %}" rel='stylesheet'/>
+<link href="{% static 'css/style.css' %}" rel='stylesheet'/>
+<script type="text/javascript" src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+<script src="{% static 'js/menu_jquery.js' %}"></script>
+<script src="{% static 'js/commodity_details.js' %}"></script>
+<script src="{% static 'js/head.js' %}"></script>
+</head>
+<body onload="Check_Login()">
+	<div class="header">	
+      <div class="container"> 
+  	     <div class="logo">
+			<h1><a href="/home">Onlion Mall</a></h1>
+		 </div>
+		 <div class="top_right">
+		   <ul>
+			<div id="register_login"><li><a href="/register-form" >注册</a></li>|<li><a href="/login-form" >&nbsp;登录</a></li></div>
+			<div hidden="hidden" id="name_shopping_cart"><li><a href="#" id="user_name" onclick="View_Order()"></a></li>|<li><a href="#" onclick="View_Cart()">&nbsp;购物车</a></li>|<li><a href="#" onclick="Logout()">&nbsp;退出</a></li></div>
+		   </ul>
+	     </div>
+		 <div class="clearfix"></div>
+		</div>
+	</div>
+	<div class="single">
+		<div class="container">
+		   <div class="single_box1">
+			 <div class="col-sm-5 single_left">
+				<img src="/static/images/single1_{{commodity_id}}.png" class="img-responsive_2" alt="" id="main_image"/>
+			 </div>
+			 <div class="col-sm-7 col_6">
+				<ul class="size">
+					<h3>{{name}}</h3>
+					<h3>Edition</h3>
+					<div hidden="hidden" id="edition"></div>
+					<div hidden="hidden" id="edition_id"></div>
+					{% for e in edition %}
+					{% if forloop.counter == 3 %}
+					<li><a href="#" onclick="Change_Image3()" id="edition_3">{{e}}</a></li><br><br><br><br>
+					{% else %}
+					<li><a href="#" onclick="Change_Image{{forloop.counter}}()" id="edition_{{forloop.counter}}">{{e}}</a></li>
+					{% endif %}
+					{% endfor %}
+				</ul>
+				<a class="btn_3" href="#" onclick="Add_to_Shopping_Cart()">加入购物车</a>
+				<a class="btn_3" href="#" onclick="Buy()">立即购买</a>
+				<p class="movie_option"><strong>Introduction : </strong>{{intro}}</p>
+				<p class="movie_option"><strong>Commodity : </strong><label >#{{commodity_id}}</label></p><div hidden="hidden" id="commodity_id">{{commodity_id}}</div>
+				<p class="movie_option"><strong>Released Date : </strong>{{publish_time}}</p>
+			</div>
+			<div class="clearfix"> </div>
+		  </div>
+		  <div class="tags">
+			{% if account %}
+	    	<h4 class="tag_head" >你可能喜欢</h4>
+			{% endif %}
+	         <ul class="tags_images">
+				{% for like in likes %}
+				{% if forloop.counter == 5 %}
+				<li class="last"><a href="/commodity/?type=view_details&commodity_id={{like.commodity_id}}&account={{account}}"><img src="/static/images/small_{{like.commodity_id}}.png" class="img-responsive_2" alt=""/></a></li>
+				{% else %}
+				<li><a href="/commodity/?type=view_details&commodity_id={{like.commodity_id}}&account={{account}}"><img src="/static/images/small_{{like.commodity_id}}.png" class="img-responsive_2" alt=""/></a></li>
+				{% endif %}
+				{% endfor %}
+				<div class="clearfix"> </div>
+			 </ul>
+			</div>
+	    </div>
+	</div>
+	<div class="grid_2">
+		<div class="container"> 
+			<div class="col-md-3 col_2">
+				<h3>Stock Commodity<br>Categories</h3>
+			</div>
+			<div class="col-md-9 col_5">
+				<div class="col_1_of_5 span_1_of_5">
+					<ul class="list1">
+					    <li><a href="stock.html">Abstract</a></li>
+			            <li><a href="stock.html">Animals/Wildlife</a></li>
+			            <li><a href="stock.html">The Arts</a></li>
+			            <li><a href="stock.html">Backgrounds/Textures</a></li>
+			            <li><a href="stock.html">Beauty/Fashion</a></li>
+			            <li><a href="stock.html">Buildings/Landmarks</a></li>
+		            </ul>
+				</div>
+				<div class="col_1_of_5 span_1_of_5">
+					<ul class="list1">
+					    <li><a href="stock.html">Business/Finance</a></li>
+			            <li><a href="stock.html">Celebrities</a></li>
+			            <li><a href="stock.html">Editorial</a></li>
+			            <li><a href="stock.html">Education</a></li>
+			            <li><a href="stock.html">Food and Drink</a></li>
+			            <li><a href="stock.html">Healthcare/Medical</a></li>
+		            </ul>
+				</div>
+				<div class="col_1_of_5 span_1_of_5">
+					<ul class="list1">
+					    <li><a href="stock.html">Holidays</a></li>
+			            <li><a href="stock.html">Illustrations/Clip-Art</a></li>
+			            <li><a href="stock.html">Industrial</a></li>
+			            <li><a href="stock.html">Interiors</a></li>
+			            <li><a href="stock.html">Miscellaneous</a></li>
+			            <li><a href="stock.html">Model Released Only</a></li>
+		            </ul>
+				</div>
+				<div class="col_1_of_5 span_1_of_5">
+					<ul class="list1">
+					    <li><a href="stock.html">Nature</a></li>
+			            <li><a href="stock.html">Objects</a></li>
+			            <li><a href="stock.html">Parks/Outdoor</a></li>
+			            <li><a href="stock.html">People</a></li>
+			            <li><a href="stock.html">Religion</a></li>
+			            <li><a href="stock.html">Science</a></li>
+		            </ul>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+	<div class="grid_3">
+	  <div class="container">
+	  	 <ul id="footer-links">
+			<li><a href="#">Terms of Use</a></li>
+			<li><a href="#">Royalty Free License</a></li>
+			<li><a href="#">Extended License</a></li>
+			<li><a href="#">Privacy</a></li>
+			<li><a href="support.html">Support</a></li>
+			<li><a href="about.html">About Us</a></li>
+			<li><a href="faq.html">FAQ</a></li>
+			<li><a href="#">Categories</a></li>
+         </ul>
+         <p>Copyright &copy; 2015.Onlion Mall All rights reserved.</p>
+	  </div>
+	</div>
+</body>
+</html>	
